@@ -9,4 +9,6 @@ public abstract class BaseBlock : MonoBehaviour, IDamagable
     protected bool IsDead() => --hpValue <= 0;
 
     public abstract void AddDamage();
+
+    public abstract void MoveBlock();
 }

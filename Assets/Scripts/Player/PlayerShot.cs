@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletGenerator : MonoBehaviour
+public class PlayerShot : MonoBehaviour
 {
     [SerializeField] private GameObject bullet = null;
     [SerializeField] private GameObject shotTarget = null;
@@ -20,7 +20,7 @@ public class PlayerBulletGenerator : MonoBehaviour
         {
             GameObject bulletClone = Instantiate(bullet, transform.position, Quaternion.identity);
             bulletShot.ShotBalls(bulletClone.GetComponent<Rigidbody2D>(), shotTarget);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

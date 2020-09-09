@@ -6,22 +6,26 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerMover playerMover;
     private PlayerInput playerInput;
-    private PlayerBulletGenerator playerBulletGenerator;
+    private PlayerShot playerShot;
 
     void Awake()
     {
         playerMover = new PlayerMover(this.gameObject);
         playerInput = new PlayerInput();
-        playerBulletGenerator = GetComponent<PlayerBulletGenerator>();
+        playerShot = GetComponent<PlayerShot>();
     }
 
     void Update()
     {
+
         if (playerInput.IsAttack())
         {
-            StartCoroutine(playerBulletGenerator.GenerateBullet());
+            StartCoroutine(playerShot.GenerateBullet());
         }
-        playerMover.ShotDirection();
+        if (!BulletCount.IsBullet())
+        {
+            playerMover.ShotDirection();
+        }
     }
 
 }
