@@ -5,17 +5,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private PlayerMover playerMover;
+    private PlayerInput playerInput;
     private PlayerBulletGenerator playerBulletGenerator;
 
     void Awake()
     {
         playerMover = new PlayerMover(this.gameObject);
+        playerInput = new PlayerInput();
         playerBulletGenerator = GetComponent<PlayerBulletGenerator>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (playerInput.IsAttack())
         {
             StartCoroutine(playerBulletGenerator.GenerateBullet());
         }
