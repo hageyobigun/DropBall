@@ -5,26 +5,31 @@ using UnityEngine;
 public class BlockGenerator : MonoBehaviour
 {
 
-    [SerializeField] private BaseBlock[] enemies = null;
-    [SerializeField] private float generateIntervalTime = 10f;
+    [SerializeField] private BaseBlock[] blocks = null;
+    private bool isGenerate;
 
     private void Start()
     {
-        StartCoroutine(GenerateEnemy());
+        isGenerate = false;
     }
 
-    private IEnumerator GenerateEnemy()
+    private void Update()
     {
-        var generateInterval = new WaitForSeconds(generateIntervalTime);
-        while (true)
+        GenerateBlock();
+    }
+
+    private void GenerateBlock()
+    {
+        if (BulletCount.IsBullet()) isGenerate = true; //弾が発射された
+        if (isGenerate && !BulletCount.IsBullet()) //発射された弾が全部消えた
         {
-            var index = Random.Range(0, enemies.Length);
-            Instantiate(enemies[index],GeneratePosition(), Quaternion.identity);
-            yield return generateInterval;
+            var index = Random.Range(0, blocks.Length);
+            Instantiate(blocks[index], GeneratePosition(), Quaternion.identity);
+            isGenerate = false;
         }
     }
 
-    private static Vector3 GeneratePosition() =>new Vector3(RandomPosition(), 1f, RandomPosition());
+    private static Vector3 GeneratePosition() => new Vector3(RandomPosition(), -5.5f, 0f);
 
-    private static float RandomPosition() => Random.Range(-9f, 9f);
+    private static float RandomPosition() => Random.Range(-5f, 5f);
 }

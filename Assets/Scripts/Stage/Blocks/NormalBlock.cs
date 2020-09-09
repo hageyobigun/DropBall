@@ -9,6 +9,7 @@ public class NormalBlock : BaseBlock
     public void Awake()
     {
         isMove = false;
+        RandomHpValue();
     }
 
     public void Update()
@@ -18,17 +19,20 @@ public class NormalBlock : BaseBlock
 
     public override void MoveBlock()
     {
-        if (BulletCount.IsBullet())isMove = true;
-        if (isMove && !BulletCount.IsBullet())
+        if (BulletCount.IsBullet())isMove = true;//弾が発射された
+        if (isMove && !BulletCount.IsBullet()) //発射された弾が全部消えた
         {
-            transform.position += transform.up;
+            transform.position += new Vector3(0, 0.5f, 0);
             isMove = false;
         }
     }
 
     public override void AddDamage()
     {
-        if (IsDead())Destroy(this.gameObject);
+        if (IsDead())
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }
